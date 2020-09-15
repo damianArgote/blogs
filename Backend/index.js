@@ -6,6 +6,7 @@ const cors = require('cors');
 const db = require('./config/database');
 //importo modelos para generar las tablas automaticamente
 require('./models/post');
+require('./models/categoria');
 //test de conexion
 //db.authenticate()
 db.sync()

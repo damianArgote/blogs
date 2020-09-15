@@ -1,20 +1,17 @@
 const Sequelize = require('sequelize');
 const db = require('../config/database');
 
+const Post = require('./post');
 
-
-const Post = db.define('post', {
+const Categoria = db.define('categorias',{
   id:{
     type:Sequelize.INTEGER(11),
     primaryKey:true,
     autoIncrement:true
   },
-  titulo:Sequelize.STRING(30),
-  contenido: Sequelize.TEXT,
-  imagen: Sequelize.STRING(255),
-  fecha:Sequelize.DATE(6)
+  nombre:Sequelize.STRING(30)
 });
 
+Categoria.hasMany(Post);
 
-
-module.exports=Post;
+module.exports=Categoria;

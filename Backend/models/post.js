@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 const db = require('../config/database');
 
-
+const Categoria = require('./categoria');
 
 const Post = db.define('post', {
   id:{
@@ -15,6 +15,7 @@ const Post = db.define('post', {
   fecha:Sequelize.DATE(6)
 });
 
+Post.belongsTo(Categoria);
 
 
 module.exports=Post;

@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 
 
-module.exports = new Sequelize('blog','root','',{
+module.exports = new Sequelize('blog','root','root',{
     host:'localhost',
     dialect:'mysql',
     define:{

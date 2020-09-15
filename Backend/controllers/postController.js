@@ -1,13 +1,13 @@
 const Post = require('../models/post');
-
+const Categoria = require('../models/categoria');
 //Crea un post
 exports.post_create = async (req, res) => {
   try {
-    const { titulo, contenido, imagen, categoria } = req.body;
+    const { titulo, contenido, imagen, categoriaId } = req.body;
 
     const fecha = Date.now();
 
-    const post = await Post.create({ titulo, contenido, imagen, categoria, fecha });
+    const post = await Post.create({ titulo, contenido, imagen, categoriaId, fecha });
 
     res.status(200).json({ post });
 
@@ -21,6 +21,10 @@ exports.post_create = async (req, res) => {
 exports.post_list = async (req, res) => {
   try {
     const posts = await Post.findAll({
+     include:{
+       model:Categoria
+     }
+      ,
       order: [
         ['fecha', 'DESC']
       ]

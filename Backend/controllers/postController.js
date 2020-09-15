@@ -41,7 +41,11 @@ exports.post_list = async (req, res) => {
 //Obtener un post por su ID
 exports.post_getById = async (req, res) => {
   try {
-    const post = await Post.findByPk(req.params.id);
+    const post = await Post.findByPk(req.params.id,
+      {include:{
+        model:Categoria
+      }}
+      );
 
     if (post) {
       res.status(200).json({ post });

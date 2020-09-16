@@ -1,8 +1,8 @@
 # Blog
-Chanllenge Alkemy Backend y Frontend
+Chanllenge Alkemy Backend
 
 # Instalacion
-Clonar el repositorio. Enviar comando
+Clonar el repositorio. Enviar comando en la carpeta de Backend para instalar la API.
 
 ```
 npm install
@@ -11,13 +11,13 @@ npm install
 ## Configuracion de la base de datos
 En el siguiente archivo colocar los datos de su conexion.
 ```
-config/database.js
+Backend/config/database.js
 ```
 
 ```
 const Sequelize = require('sequelize');
 
-module.exports = new Sequelize(DATABSE,USER,PASS,{
+module.exports = new Sequelize(DATABASE,USER,PASS,{
     host:'localhost',
     dialect:'mysql',
     define:{
@@ -82,3 +82,5 @@ Resultado:
     }
 }
 ```
+
+

@@ -15,7 +15,7 @@ const Post = db.define('post', {
   fecha:Sequelize.DATE(6)
 });
 
-Post.belongsTo(Categoria);
+Post.belongsTo(Categoria,{ as: 'categoria' });
 
 
 module.exports=Post;

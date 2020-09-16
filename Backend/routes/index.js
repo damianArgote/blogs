@@ -26,6 +26,8 @@ module.exports = function(){
    */
   router.post('/categorias', categoriaController.categoria_create);
 
+  router.get('/categorias',categoriaController.categoria_list);
+
 
   return router;
 }

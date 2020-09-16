@@ -22,7 +22,8 @@ exports.post_list = async (req, res) => {
   try {
     const posts = await Post.findAll({
      include:{
-       model:Categoria
+       model:Categoria,
+       as: 'categoria'
      }
       ,
       order: [

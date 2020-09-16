@@ -8,3 +8,8 @@ exports.categoria_create = async (req,res) =>{
 
   res.status(200).json({categoria});
 }
+
+exports.categoria_list = async (req,res) =>{
+  const categorias = await Categoria.findAll();
+  res.status(200).json({categorias});
+}

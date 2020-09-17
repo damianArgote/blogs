@@ -1,6 +1,5 @@
 import React, { Fragment, useState, useEffect } from "react";
 
-import {Link} from 'react-router-dom';
 import clienteAxios from '../../config/axios';
 
 import Post from './Post';
@@ -10,13 +9,16 @@ const Home = () => {
   const [posts,guardarPosts] = useState([]);
 
   useEffect(() =>{
+    let isMounted = true
     const consultarAPI = async () =>{
         const respuesta = await clienteAxios.get('/posts');
-        guardarPosts(respuesta.data);
+        if(isMounted){
+          guardarPosts(respuesta.data);
+        }
+        return () => { isMounted = false };
     }
-
     consultarAPI();
-  },[posts]);
+  },[]);
 
 
   return (
@@ -32,11 +34,6 @@ const Home = () => {
                 />
             ))}
           
-            <div className="clearfix">
-              <Link className="btn btn-primary float-right" to={'#'}>
-                Older Posts &rarr;
-              </Link>
-            </div>
           </div>
         </div>
       </div>

@@ -1,14 +1,16 @@
-import React, {useState,useEffect} from 'react';
+import React, {useState} from 'react';
+import clienteAxios from '../../config/axios';
+
 const Publicar = () => {
 
     const [ post, guardarPost] = useState({
-        userId:0,
-        id:0,
         title:'',
         body:''
     });
 
-    const {userId,id,title,body} = post;
+    const [error,guardarError] = useState(false);
+
+    const {title,body} = post;
 
     const onChange = e =>{
 
@@ -20,8 +22,26 @@ const Publicar = () => {
     };
 
     const onSubmit = e =>{
+        e.preventDefault();
 
         //validar
+        if(title.trim() === '' || body.trim() === ''){
+            guardarError(true);
+        }
+
+        setTimeout(() => {
+            guardarError(false);
+        }, 3000);
+
+        //hacer peticion API
+         const consultarAPI = async () =>{
+            const respuesta = await clienteAxios.post('/posts',post);
+            console.log(respuesta);
+            guardarPost(respuesta.data);
+         }
+         consultarAPI();
+
+
 
     }
 
@@ -30,41 +50,13 @@ const Publicar = () => {
             <div className="row">
                 <div className="col-lg-8 col-md-10 mx-auto">
                     <h2>Publicar nuevo Post</h2>
+                    {error ? <div className="p-3 mb-2 bg-danger text-white text-center">Faltan completar campos obligatorios</div> : null}
+
                     <form
                         onSubmit={onSubmit}
                     >
 
-                        <div className="control-group">
-                            <div className="form-group floating-label-form-group controls">
-                                <label>User</label>
-                                <input 
-                                type="number" 
-                                className="form-control" 
-                                placeholder="user id" 
-                                name="userId"
-                                onChange={onChange}
-                                
-                                />
-                                
-                            </div>
-                        </div>
-
-                        <div className="control-group">
-                            <div className="form-group floating-label-form-group controls">
-                                <label>ID</label>
-                                <input 
-                                type="number" 
-                                className="form-control" 
-                                placeholder="id" 
-                                name="id"
-                                onChange={onChange}
-                                
-                                />
-                                
-                            </div>
-                        </div>
-
-                        <div className="control-group">
+                         <div className="control-group">
                             <div className="form-group floating-label-form-group controls">
                                 <label>Titulo</label>
                                 <input 
@@ -72,6 +64,7 @@ const Publicar = () => {
                                 className="form-control" 
                                 placeholder="Titulo" 
                                 name="title"
+                                value={title}
                                 onChange={onChange}
                                 
                                 />
@@ -79,21 +72,22 @@ const Publicar = () => {
                             </div>
                         </div>
 
-                        <div class="control-group">
-                            <div class="form-group floating-label-form-group controls">
+                        <div className="control-group">
+                            <div className="form-group floating-label-form-group controls">
                                 <label>Contenido</label>
                                 <textarea 
                                 rows="5" 
-                                class="form-control" 
+                                className="form-control" 
                                 placeholder="Contenido" 
                                 name="body"
+                                value={body}
                                 onChange={onChange}
                                 ></textarea>
-                                <p class="help-block text-danger"></p>
+                                <p className="help-block text-danger"></p>
                             </div>
                         </div>
 
-                        <button type="submit" class="btn btn-primary">Publicar</button>
+                        <button type="submit" className="btn btn-primary">Publicar</button>
 
                     </form>
                 </div>

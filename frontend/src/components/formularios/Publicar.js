@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import clienteAxios from '../../config/axios';
+import Swal from 'sweetalert2';
 
 const Publicar = () => {
 
@@ -36,8 +37,14 @@ const Publicar = () => {
         //hacer peticion API
          const consultarAPI = async () =>{
             const respuesta = await clienteAxios.post('/posts',post);
-            console.log(respuesta);
             guardarPost(respuesta.data);
+            if(respuesta.status === 201){
+                Swal.fire(
+                    'Publicado!',
+                    'El Post fue publicado',
+                    'success'
+                  )
+            }
          }
          consultarAPI();
 

@@ -1,5 +1,6 @@
 import React,{useState,useEffect} from 'react';
 import clienteAxios from '../../config/axios';
+import Swal from 'sweetalert2';
 
 const Editar = (props) => {
 
@@ -51,8 +52,16 @@ const Editar = (props) => {
         //hacer peticion API
         const consultarAPI = async () =>{
             const respuesta = await clienteAxios.patch(`/posts/${id}`,post);
-            console.log(respuesta);
             guardarPost(respuesta.data);
+            if(respuesta.status === 200){
+                Swal.fire(
+                    'Editado!',
+                    'El Post fue editado',
+                    'success'
+                  )
+            }
+            
+
          }
          consultarAPI();
     }
